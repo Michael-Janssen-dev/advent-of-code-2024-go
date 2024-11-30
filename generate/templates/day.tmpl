@@ -1,0 +1,26 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+)
+
+func Part1(input string) int {
+	return 0
+}
+
+func Part2(input string) int {
+	return 0
+}
+
+func main() {
+	fmt.Println("Day {{ .Day }}")
+	file, err := os.ReadFile("input/inp.txt")
+	if err != nil {
+		log.Fatalln("Could not find file, exiting...")
+	}
+	input := string(file)
+	fmt.Printf("\tPart 1: %d", Part1(input))
+	fmt.Printf("\tPart 2: %d", Part2(input))
+}
