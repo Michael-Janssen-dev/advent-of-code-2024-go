@@ -7,18 +7,22 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/michael-janssen-dev/advent-of-code-2024-go/data-structures/set"
 )
 
-func preprocess(input string) (map[int]map[int]struct{}, [][]int) {
+type Order = map[int]set.Set[int]
+
+func preprocess(input string) (Order, [][]int) {
 	splitted := strings.Split(input, "\n\n")
 	ordering, updates_raw := splitted[0], splitted[1]
-	after := make(map[int]map[int]struct{})
+	after := make(Order)
 	for _, line := range strings.Split(ordering, "\n") {
 		split := strings.Split(line, "|")
 		left, _ := strconv.Atoi(split[0])
 		right, _ := strconv.Atoi(split[1])
 		if _, ok := after[left]; !ok {
-			after[left] = make(map[int]struct{})
+			after[left] = make(set.Set[int])
 		}
 
 		after[left][right] = struct{}{}
@@ -55,10 +59,10 @@ func Part1(input string) int {
 
 type UpdateSorter struct {
 	pages []int
-	order map[int]map[int]struct{}
+	order Order
 }
 
-func NewUpdateSorter(pages []int, order map[int]map[int]struct{}) UpdateSorter {
+func NewUpdateSorter(pages []int, order Order) UpdateSorter {
 	return UpdateSorter{
 		pages,
 		order,
@@ -70,8 +74,7 @@ func (b UpdateSorter) Len() int {
 }
 
 func (b UpdateSorter) Less(i, j int) bool {
-	_, ok := b.order[b.pages[i]][b.pages[j]]
-	return ok
+	return b.order[b.pages[i]].Contains(b.pages[j])
 }
 
 func (b UpdateSorter) Swap(i, j int) {
