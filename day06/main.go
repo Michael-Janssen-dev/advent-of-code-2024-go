@@ -26,7 +26,7 @@ func GetCoorFromStates(states set.Set[State]) set.Set[Coor] {
 	return result
 }
 
-func Run(grid set.Set[Coor], start Coor, max_x, max_y int) (bool, int) {
+func Run(grid set.Set[Coor], start Coor, max_x, max_y int, extra_obstacle Coor) (bool, int) {
 	location := State{start, 0}
 	visited := set.NewSet[State]()
 
@@ -46,7 +46,7 @@ func Run(grid set.Set[Coor], start Coor, max_x, max_y int) (bool, int) {
 			next = State{Coor{location.coor.x - 1, location.coor.y}, location.dir}
 		}
 
-		if grid.Contains(next.coor) {
+		if grid.Contains(next.coor) || next.coor == extra_obstacle {
 			location.dir = (location.dir + 1) % 4
 			continue
 		}
@@ -80,27 +80,36 @@ func preprocess(input string) (set.Set[Coor], Coor, int, int) {
 func Part1(input string) int {
 	grid, start, max_x, max_y := preprocess(input)
 
-	_, result := Run(grid, start, max_x, max_y)
+	_, result := Run(grid, start, max_x, max_y, Coor{-1, -1})
 
 	return result
+}
+
+func RunAsync(grid set.Set[Coor], start Coor, max_x, max_y int, obstacle Coor, c chan bool) {
+	loop, _ := Run(grid, start, max_x, max_y, obstacle)
+	c <- loop
 }
 
 func Part2(input string) int {
 	grid, start, max_x, max_y := preprocess(input)
 
 	result := 0
+	channel := make(chan bool)
+	send := 0
 	for y := range max_y + 1 {
 		for x := range max_x + 1 {
 			obstacle := Coor{x, y}
 			if grid.Contains(obstacle) {
 				continue
 			}
-			grid.Add(obstacle)
-			loop, _ := Run(grid, start, max_x, max_y)
-			if loop {
-				result += 1
-			}
-			grid.Remove(obstacle)
+			go RunAsync(grid, start, max_x, max_y, obstacle, channel)
+			send += 1
+		}
+	}
+
+	for range send {
+		if <-channel {
+			result += 1
 		}
 	}
 
