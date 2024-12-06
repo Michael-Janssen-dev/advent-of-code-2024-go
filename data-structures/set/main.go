@@ -18,3 +18,7 @@ func (s Set[T]) Contains(value T) bool {
 func (s Set[T]) Remove(value T) {
 	delete(s, value)
 }
+
+func (s Set[T]) Len() int {
+	return len(s)
+}
