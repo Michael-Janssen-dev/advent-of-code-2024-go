@@ -9,28 +9,6 @@ import (
 	"github.com/michael-janssen-dev/advent-of-code-2024-go/data-structures/set"
 )
 
-type Queue[T any] struct {
-	List []T
-}
-
-func (q *Queue[T]) Push(item T) {
-	q.List = append(q.List, item)
-}
-
-func (q *Queue[T]) Pop() T {
-	item := q.List[0]
-	q.List = q.List[1:]
-	return item
-}
-
-func (q *Queue[T]) IsEmpty() bool {
-	return len(q.List) == 0
-}
-
-func NewQueue[T any]() Queue[T] {
-	return Queue[T]{make([]T, 0)}
-}
-
 func Part1(input string) int {
 	grid := core.NewGridFromFile(input)
 	start := make([]core.Point, 0)
@@ -45,7 +23,7 @@ func Part1(input string) int {
 	result := 0
 	for _, s := range start {
 		visited := set.NewSet[core.Point]()
-		queue := NewQueue[core.Point]()
+		queue := core.NewQueue[core.Point]()
 		queue.Push(s)
 		for {
 			if queue.IsEmpty() {
@@ -86,7 +64,7 @@ func Part2(input string) int {
 
 	result := 0
 	for _, s := range start {
-		queue := NewQueue[core.Point]()
+		queue := core.NewQueue[core.Point]()
 		queue.Push(s)
 		for {
 			if queue.IsEmpty() {
