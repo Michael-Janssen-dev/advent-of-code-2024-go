@@ -1,10 +1,9 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
-	"log"
 	"math"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -54,13 +53,11 @@ func Part2(input string) int {
 	return score
 }
 
+//go:embed input/inp.txt
+var input string
+
 func main() {
 	fmt.Println("Day 1")
-	file, err := os.ReadFile("input/inp.txt")
-	if err != nil {
-		log.Fatalln("Could not find file, exiting...")
-	}
-	input := string(file)
 	fmt.Printf("\tPart 1: %d\n", Part1(input))
 	fmt.Printf("\tPart 2: %d\n", Part2(input))
 }

@@ -1,9 +1,8 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
-	"log"
-	"os"
 )
 
 func Part1(input string) int {
@@ -92,13 +91,11 @@ func Part2(input string) int {
 	return sum
 }
 
+//go:embed input/inp.txt
+var input string
+
 func main() {
 	fmt.Println("Day 9")
-	file, err := os.ReadFile("input/inp.txt")
-	if err != nil {
-		log.Fatalln("Could not find file, exiting...")
-	}
-	input := string(file)
 	fmt.Printf("\tPart 1: %d\n", Part1(input))
 	fmt.Printf("\tPart 2: %d\n", Part2(input))
 }
