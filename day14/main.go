@@ -94,9 +94,6 @@ func Part2(input string) int {
 	t := 0
 	for {
 		t += 1
-		if t%100 == 0 {
-			fmt.Println(t)
-		}
 		hash := set.NewSet[int]()
 		colUsed := make([]bool, WIDTH)
 		rowUsed := make([]bool, HEIGHT)
