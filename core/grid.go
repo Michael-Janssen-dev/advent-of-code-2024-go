@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/michael-janssen-dev/advent-of-code-2024-go/data-structures/set"
@@ -31,6 +32,18 @@ func (g Grid) FindAll(c Char) set.Set[Point] {
 	return points
 }
 
+func (g Grid) FindOne(c Char) *Point {
+	for y := range g {
+		for x, val := range g[y] {
+			if val == c {
+				point := NewPoint(x, y)
+				return &point
+			}
+		}
+	}
+	return nil
+}
+
 func (g Grid) InGrid(p Point) bool {
 	return p.X >= 0 && p.Y >= 0 && p.X < len(g[0]) && p.Y < len(g)
 }
@@ -54,4 +67,27 @@ func (g Grid) Get(x, y int) Char {
 
 func (g Grid) GetPoint(p *Point) Char {
 	return g[p.Y][p.X]
+}
+
+func (g Grid) SetPoint(p *Point, char Char) {
+	g[p.Y][p.X] = char
+}
+
+func (g Grid) Print() {
+	for y := range g {
+		for _, char := range g[y] {
+			fmt.Print(string(char))
+		}
+		fmt.Println()
+	}
+	fmt.Println()
+}
+
+func (g Grid) Copy() Grid {
+	new := make(Grid, len(g))
+	for y := range g {
+		new[y] = make([]Char, len(g[y]))
+		copy(g[y], new[y])
+	}
+	return new
 }

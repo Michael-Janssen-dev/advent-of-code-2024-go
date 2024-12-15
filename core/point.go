@@ -34,6 +34,11 @@ func (p Point) West() Point {
 	return Point{p.X - 1, p.Y}
 }
 
+var NORTH = Point{0, -1}
+var EAST = Point{1, 0}
+var SOUTH = Point{0, 1}
+var WEST = Point{-1, 0}
+
 func (p Point) Cardinal() []Point {
 	result := make([]Point, 4)
 	result[0] = p.North()
