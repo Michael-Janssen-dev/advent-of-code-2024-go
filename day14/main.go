@@ -98,7 +98,6 @@ func Part2(input string) int {
 			fmt.Println(t)
 		}
 		hash := set.NewSet[int]()
-		// positions := set.NewSet[core.Point]()
 		colUsed := make([]bool, WIDTH)
 		rowUsed := make([]bool, HEIGHT)
 		for i := range robots {
@@ -106,7 +105,6 @@ func Part2(input string) int {
 			colUsed[robots[i].x] = true
 			rowUsed[robots[i].y] = true
 			hash.Add(robots[i].PositionHash())
-			// positions.Add(robots[i].Position())
 		}
 
 		nrColUnUsed := 0
@@ -123,19 +121,7 @@ func Part2(input string) int {
 		}
 
 		if nrColUnUsed > 10 && nrRowUnUsed > 10 {
-			for y := range HEIGHT {
-				for x := range WIDTH {
-					point := core.Point{X: x, Y: y}
-					if hash.Contains(point.Y*WIDTH + point.X) {
-						fmt.Print("X")
-					} else {
-						fmt.Print(".")
-					}
-				}
-				fmt.Println()
-			}
-			fmt.Println(t)
-			fmt.Scanln()
+			return t
 		}
 	}
 }
