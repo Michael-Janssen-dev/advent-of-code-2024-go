@@ -11,8 +11,8 @@ type Char byte
 
 type Grid [][]Char
 
-func NewGridFromFile(file string) Grid {
-	lines := strings.Split(file[:len(file)-1], "\n")
+func NewGridFromLines(input string) Grid {
+	lines := strings.Split(input, "\n")
 	grid := make([][]Char, len(lines))
 	for i, line := range lines {
 		grid[i] = []Char(line)

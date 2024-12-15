@@ -14,6 +14,7 @@ func TestDay1(t *testing.T) {
 		t.Fatalf("Could not find test file")
 	}
 	input := string(file)
+	input = input[:len(input)-1]
 
 	result := Part1(input)
 	if result != PART_1 {

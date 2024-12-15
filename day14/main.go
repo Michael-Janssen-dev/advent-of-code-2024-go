@@ -14,8 +14,8 @@ type Robot struct {
 	x, y, vx, vy int
 }
 
-const WIDTH = 101
-const HEIGHT = 103
+var WIDTH = 11
+var HEIGHT = 7
 
 func (r *Robot) PositionAfter(t int) (int, int) {
 	x := (r.x + (t%WIDTH)*r.vx) % WIDTH
@@ -131,6 +131,8 @@ var input string
 
 func main() {
 	fmt.Println("Day 14")
+	WIDTH = 101
+	HEIGHT = 103
 	fmt.Printf("\tPart 1: %d\n", Part1(input))
 	fmt.Printf("\tPart 2: %d\n", Part2(input))
 }
