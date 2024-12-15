@@ -14,7 +14,6 @@ type Machine struct {
 
 func CloseEnough(num float64) bool {
 	diff := math.Abs(num - float64(int(math.Round(num))))
-	fmt.Println(diff)
 	return diff < 0.0001 || diff > 0.9999
 }
 
