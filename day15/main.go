@@ -42,7 +42,7 @@ func (g *BoxGrid) move(char rune) {
 	move := '@'
 	for {
 		newPos = newPos.Add(dir)
-		point := g.GetPoint(&newPos)
+		point := g.GetPoint(newPos)
 		if point == WALL {
 			g.pos = startPos
 			return
@@ -56,10 +56,10 @@ func (g *BoxGrid) move(char rune) {
 			if move == '@' {
 				g.pos = newPos
 			} else {
-				g.SetPoint(&newPos, 'O')
+				g.SetPoint(newPos, 'O')
 			}
-			g.SetPoint(&g.pos, '@')
-			g.SetPoint(&startPos, '.')
+			g.SetPoint(g.pos, '@')
+			g.SetPoint(startPos, '.')
 			return
 		}
 	}
@@ -85,7 +85,7 @@ func (g *BoxGrid) moveWide(char rune) {
 	changes[g.pos.Add(dir)] = '@'
 	for !queue.IsEmpty() {
 		pos := queue.Pop()
-		point := g.GetPoint(&pos)
+		point := g.GetPoint(pos)
 		if point == WALL {
 			return
 		}
@@ -122,7 +122,7 @@ func (g *BoxGrid) moveWide(char rune) {
 		}
 	}
 	for change, val := range changes {
-		g.SetPoint(&change, core.Char(val))
+		g.SetPoint(change, core.Char(val))
 	}
 	g.pos = g.pos.Add(dir)
 }

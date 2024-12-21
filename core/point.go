@@ -47,3 +47,11 @@ func (p Point) Cardinal() []Point {
 	result[3] = p.West()
 	return result
 }
+
+func (p Point) Clockwise() Point {
+	return Point{-p.Y, p.X}
+}
+
+func (p Point) CounterClockwise() Point {
+	return Point{p.Y, -p.X}
+}

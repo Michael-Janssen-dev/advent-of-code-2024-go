@@ -22,3 +22,11 @@ func (s Set[T]) Remove(value T) {
 func (s Set[T]) Len() int {
 	return len(s)
 }
+
+func (s Set[T]) Copy() Set[T] {
+	newSet := NewSet[T]()
+	for k := range s {
+		newSet.Add(k)
+	}
+	return newSet
+}

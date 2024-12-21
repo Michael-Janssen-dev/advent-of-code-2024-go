@@ -65,11 +65,11 @@ func (g Grid) Get(x, y int) Char {
 	return g[y][x]
 }
 
-func (g Grid) GetPoint(p *Point) Char {
+func (g Grid) GetPoint(p Point) Char {
 	return g[p.Y][p.X]
 }
 
-func (g Grid) SetPoint(p *Point, char Char) {
+func (g Grid) SetPoint(p Point, char Char) {
 	g[p.Y][p.X] = char
 }
 

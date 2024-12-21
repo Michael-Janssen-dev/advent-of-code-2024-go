@@ -29,12 +29,12 @@ func Part1(input string) int {
 				break
 			}
 			item := queue.Pop()
-			gridNr := grid.GetPoint(&item)
+			gridNr := grid.GetPoint(item)
 			for _, dir := range item.Cardinal() {
 				if !grid.InGrid(dir) || visited.Contains(dir) {
 					continue
 				}
-				dirNr := grid.GetPoint(&dir)
+				dirNr := grid.GetPoint(dir)
 				if dirNr-gridNr == 1 {
 					queue.Push(dir)
 					visited.Add(dir)
@@ -70,12 +70,12 @@ func Part2(input string) int {
 				break
 			}
 			item := queue.Pop()
-			gridNr := grid.GetPoint(&item)
+			gridNr := grid.GetPoint(item)
 			for _, dir := range item.Cardinal() {
 				if !grid.InGrid(dir) {
 					continue
 				}
-				dirNr := grid.GetPoint(&dir)
+				dirNr := grid.GetPoint(dir)
 				if dirNr-gridNr == 1 {
 					queue.Push(dir)
 				}
