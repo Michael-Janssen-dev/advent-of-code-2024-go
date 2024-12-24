@@ -1,4 +1,4 @@
 **/inp.txt
-**/test.txt
+**/test*.txt
 .env
 build/

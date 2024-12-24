@@ -55,3 +55,15 @@ func (p Point) Clockwise() Point {
 func (p Point) CounterClockwise() Point {
 	return Point{p.Y, -p.X}
 }
+
+func (p Point) Manhattan(other Point) int {
+	x := p.X - other.X
+	if x < 0 {
+		x = -x
+	}
+	y := p.Y - other.Y
+	if y < 0 {
+		y = -y
+	}
+	return x + y
+}

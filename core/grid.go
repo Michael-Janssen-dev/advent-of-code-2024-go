@@ -20,6 +20,17 @@ func NewGridFromLines(input string) Grid {
 	return grid
 }
 
+func NewGridWithSize(x, y int, defaultChar Char) Grid {
+	grid := make([][]Char, y)
+	for i := range y {
+		grid[i] = make([]Char, x)
+		for j := range x {
+			grid[i][j] = defaultChar
+		}
+	}
+	return grid
+}
+
 func (g Grid) FindAll(c Char) set.Set[Point] {
 	points := set.NewSet[Point]()
 	for y := range g {
@@ -66,7 +77,7 @@ func (g Grid) Get(x, y int) Char {
 }
 
 func (g Grid) GetPoint(p Point) Char {
-	return g[p.Y][p.X]
+	return g.Get(p.X, p.Y)
 }
 
 func (g Grid) SetPoint(p Point, char Char) {
@@ -90,4 +101,13 @@ func (g Grid) Copy() Grid {
 		copy(g[y], new[y])
 	}
 	return new
+}
+
+func (g Grid) PrettyPrint() {
+	for y := range g {
+		for x := range g[y] {
+			fmt.Print(string(g[y][x]))
+		}
+		fmt.Println()
+	}
 }
