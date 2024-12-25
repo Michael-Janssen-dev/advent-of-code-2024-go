@@ -44,6 +44,10 @@ func (h *PriorityQueue[T]) PopSafe() T {
 	return heap.Pop(h).(T)
 }
 
+func (h *PriorityQueue[T]) Clear() {
+	h = nil
+}
+
 func NewPriorityQueue[T PriorityQueueItem]() PriorityQueue[T] {
 	return make(PriorityQueue[T], 0)
 }

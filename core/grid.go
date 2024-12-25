@@ -98,16 +98,7 @@ func (g Grid) Copy() Grid {
 	new := make(Grid, len(g))
 	for y := range g {
 		new[y] = make([]Char, len(g[y]))
-		copy(g[y], new[y])
+		copy(new[y], g[y])
 	}
 	return new
-}
-
-func (g Grid) PrettyPrint() {
-	for y := range g {
-		for x := range g[y] {
-			fmt.Print(string(g[y][x]))
-		}
-		fmt.Println()
-	}
 }
